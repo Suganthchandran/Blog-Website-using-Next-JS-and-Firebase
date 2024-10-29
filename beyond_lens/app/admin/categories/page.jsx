@@ -1,8 +1,9 @@
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
+import CategoriesList from "./components/CategoriesList";
 
 export default function Page() {
-    return <main className="p-6 w-full">
+    return <main className="p-6 w-full flex flex-col gap-6 px-14">
        <div className="flex justify-between items-center">
         <h1 className="font-bold">Categories</h1>
             <Link href={'/admin/categories/form'}>
@@ -12,5 +13,6 @@ export default function Page() {
                 </button>
             </Link>
        </div>
+       <CategoriesList/>
     </main>
 }

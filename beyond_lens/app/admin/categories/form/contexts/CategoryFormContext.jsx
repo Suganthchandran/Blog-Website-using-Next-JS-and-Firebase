@@ -1,14 +1,21 @@
-import { Children, createContext, useContext, useState } from "react";
+"use client"
+
+import { createNewCategory } from "@/lib/firebase/category/create";
+import { getCategory } from "@/lib/firebase/category/view";
+import { createContext, useContext, useState } from "react";
 
 const CategoryFormContext = createContext();
 
-export default function CategoryFormContextProvider({Children}) {
+export default function CategoryFormContextProvider({children}) {
 
     const [data,setData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isDone, setIsDone] = useState(false);
+    const [image, setImage] = useState(null);
 
     const handleData = (key, value) => {
+        setIsDone(false);
         setData({
             ...data,
             [key]: value,
@@ -18,8 +25,10 @@ export default function CategoryFormContextProvider({Children}) {
     const handleCreate = async ()=> {
         setError(null)
         setIsLoading(true)
+        setIsDone(false);
         try {
-
+            await createNewCategory({data: data, image: image});
+            setIsDone(true)
         }
         catch(error) {
             setError(error?.message);
@@ -27,15 +36,36 @@ export default function CategoryFormContextProvider({Children}) {
         setIsLoading(false)
     }
 
-
+    const fetchData = async (id) => {
+        setError(null)
+        setIsLoading(true)
+        setIsDone(false);
+        try {
+            const res = await getCategory(id);
+            if(res.exists()) {
+                setData(res.data())
+            }
+            else {
+                throw new Error(`No Category Found from id ${id}`);
+            }
+        }
+        catch(error) {
+            setError(error?.message);
+        }
+        setIsLoading(false)
+    }
 
     return <CategoryFormContext.Provider value={{
         data,
         isLoading,
         error,
-        handleCreate
+        isDone,
+        handleData,
+        handleCreate,
+        image, setImage,
+        fetchData
     }}>
-        {/* {Children} */}
+        {children}
     </CategoryFormContext.Provider>
 
 }
