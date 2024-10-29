@@ -1,6 +1,6 @@
 "use client"
 
-import { createNewCategory } from "@/lib/firebase/category/create";
+import { createNewCategory, updateCategory } from "@/lib/firebase/category/create";
 import { getCategory } from "@/lib/firebase/category/view";
 import { createContext, useContext, useState } from "react";
 
@@ -36,6 +36,20 @@ export default function CategoryFormContextProvider({children}) {
         setIsLoading(false)
     }
 
+    const handleUpdate = async ()=> {
+        setError(null)
+        setIsLoading(true)
+        setIsDone(false);
+        try {
+            await updateCategory({data: data, image: image});
+            setIsDone(true)
+        }
+        catch(error) {
+            setError(error?.message);
+        }
+        setIsLoading(false)
+    }
+
     const fetchData = async (id) => {
         setError(null)
         setIsLoading(true)
@@ -63,7 +77,8 @@ export default function CategoryFormContextProvider({children}) {
         handleData,
         handleCreate,
         image, setImage,
-        fetchData
+        fetchData,
+        handleUpdate
     }}>
         {children}
     </CategoryFormContext.Provider>

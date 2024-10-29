@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function Page() {
 
-    const { data, isLoading, error, isDone, handleData, handleCreate, image, setImage, fetchData } = useCategoryForm();
+    const { data, isLoading, error, isDone, handleData, handleCreate, image, setImage, fetchData, handleUpdate } = useCategoryForm();
 
     const searchParams = useSearchParams();
     const updateCategoryId = searchParams.get('id');
@@ -34,7 +34,12 @@ export default function Page() {
         <section className="flex">
             <form onSubmit={(e) => {
                 e.preventDefault();
-                handleCreate();
+                if(updateCategoryId) {
+                    handleUpdate();
+                }
+                else {
+                    handleCreate();
+                }
             }}
                 className="flex flex-col gap-4 border rounded-xl p-7">
                 <div className="flex flex-col gap-2">
@@ -49,6 +54,10 @@ export default function Page() {
                     <img className="h-40" src={URL.createObjectURL(image)} alt="" />
                 </div>
                 }
+                {data?.iconURL && <div>
+                    <img className="h-40" src={data?.iconURL} alt="" />
+                </div>
+                }
                 <div className="flex flex-col gap-2">
                     <label className="text-gray-500 text-sm">Image <span className="text-red-500">*</span></label>
                     <input
@@ -59,14 +68,16 @@ export default function Page() {
                             e.preventDefault();
                             setImage(e.target.files[0]);
                         }}
-                        required
+                        // required
                     />
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
                 {!isDone && <button type="submit" className="bg-green-500 font-bold px-4 py-2 rounded-full text-white" disabled={isLoading || isDone}>
-                    { isLoading ? 'Loading...' : 'Create'}
+                    { isLoading ? 'Loading...' : updateCategoryId ? 'Update' : 'Create'}
                 </button>}
-                {isDone && <h3 className="text-green-600 text-center font-bold">Successfully Created !</h3>}
+                {isDone && <h3 className="text-green-600 text-center font-bold">
+                    Successfully {updateCategoryId ? 'Updated' : 'Created'} !
+                    </h3>}
             </form>
         </section>
     </main>
