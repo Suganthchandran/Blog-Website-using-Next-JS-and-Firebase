@@ -1,6 +1,7 @@
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import CategoriesList from "./components/CategoriesList";
+import CategoryFormContextProvider from "./form/contexts/CategoryFormContext";
 
 export default function Page() {
     return <main className="p-6 w-full flex flex-col gap-6 px-14">
@@ -13,6 +14,8 @@ export default function Page() {
                 </button>
             </Link>
        </div>
+       <CategoryFormContextProvider>
        <CategoriesList/>
+       </CategoryFormContextProvider>
     </main>
 }

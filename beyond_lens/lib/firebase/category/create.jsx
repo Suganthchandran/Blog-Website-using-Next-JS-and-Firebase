@@ -1,5 +1,5 @@
 import { db, storage } from "@/lib/firebase";
-import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const createNewCategory = async ({data, image})=> {
@@ -51,4 +51,12 @@ export const updateCategory = async ({data, image})=> {
         iconURL: imageURL,
         timestamp: Timestamp.now(),
     })
+}
+
+export const deleteCategory = async (id)=> {
+    if(!id) {
+        throw new Error('Id id required');
+    }
+
+    await deleteDoc(doc(db, `categories/${id}`))
 }

@@ -1,7 +1,8 @@
 "use client"
 
-import { createNewCategory, updateCategory } from "@/lib/firebase/category/create";
+import { createNewCategory, deleteCategory, updateCategory } from "@/lib/firebase/category/create";
 import { getCategory } from "@/lib/firebase/category/view";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useState } from "react";
 
 const CategoryFormContext = createContext();
@@ -13,6 +14,7 @@ export default function CategoryFormContextProvider({children}) {
     const [error, setError] = useState(null);
     const [isDone, setIsDone] = useState(false);
     const [image, setImage] = useState(null);
+    const router = useRouter();
 
     const handleData = (key, value) => {
         setIsDone(false);
@@ -29,6 +31,9 @@ export default function CategoryFormContextProvider({children}) {
         try {
             await createNewCategory({data: data, image: image});
             setIsDone(true)
+            setTimeout(() => {
+                router.push('/admin/categories');
+            }, 2000);
         }
         catch(error) {
             setError(error?.message);
@@ -42,6 +47,23 @@ export default function CategoryFormContextProvider({children}) {
         setIsDone(false);
         try {
             await updateCategory({data: data, image: image});
+            setIsDone(true)
+            setTimeout(() => {
+                router.push('/admin/categories');
+            }, 2000);
+        }
+        catch(error) {
+            setError(error?.message);
+        }
+        setIsLoading(false)
+    }
+
+    const handleDelete = async (id)=> {
+        setError(null)
+        setIsLoading(true)
+        setIsDone(false);
+        try {
+            await deleteCategory(id)
             setIsDone(true)
         }
         catch(error) {
@@ -78,7 +100,7 @@ export default function CategoryFormContextProvider({children}) {
         handleCreate,
         image, setImage,
         fetchData,
-        handleUpdate
+        handleUpdate, handleDelete
     }}>
         {children}
     </CategoryFormContext.Provider>
