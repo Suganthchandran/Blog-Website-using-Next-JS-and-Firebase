@@ -86,9 +86,7 @@ export default function Page() {
                     Successfully {updatePostId ? 'Updated' : 'Created'} !
                 </h3>}
             </form>
-            <div>
             <RTEField/>
-            </div>
         </section>
     </main>
 }
@@ -96,6 +94,7 @@ export default function Page() {
 function SelectCategoryField() {
     const { data, handleData } = usePostForm();
     const { data : categories } = useCategories();
+    console.log('categories',categories)
     return <div className="flex flex-col gap-2">
         <label className="text-gray-500 text-sm">Category <span className="text-red-500">*</span></label>
         <select 
@@ -119,6 +118,7 @@ function SelectCategoryField() {
 function SelectAuthorField() {
     const { data, handleData } = usePostForm();
     const { data : authors } = useAuthors();
+    console.log('author',authors)
     return <div className="flex flex-col gap-2">
         <label className="text-gray-500 text-sm">Author <span className="text-red-500">*</span></label>
         <select 

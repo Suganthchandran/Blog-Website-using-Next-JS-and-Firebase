@@ -38,7 +38,7 @@ export default function PostList() {
                         return <tr key={item.id}>
                             <td className="border px-4 py-2 text-center">{key + 1}</td>
                             <td className="border px-4 py-2"> <img className="h-10" src={item?.imageURL} alt="" /> </td>
-                            <td className="border px-4 py-2">{item?.name}</td>
+                            <td className="border px-4 py-2">{item?.title}</td>
                             <td className="border px-4 py-2">{item?.slug}</td>
                             <td className="border py-2 w-80">
                                 <div className="flex flex-row justify-evenly">

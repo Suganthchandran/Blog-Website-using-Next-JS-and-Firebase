@@ -3,8 +3,8 @@ import { deleteDoc, doc, setDoc, Timestamp, updateDoc } from "firebase/firestore
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const createNewPost = async ({data, image})=> {
-    if(!data?.name) {
-        throw new Error("Name is undefined");
+    if(!data?.title) {
+        throw new Error("Title is undefined");
     }
 
     if(!data?.slug) {
@@ -29,8 +29,8 @@ export const createNewPost = async ({data, image})=> {
 }
 
 export const updatePost = async ({data, image})=> {
-    if(!data?.name) {
-        throw new Error("Name is undefined");
+    if(!data?.title) {
+        throw new Error("Title is undefined");
     }
 
     if(!data?.slug) {
