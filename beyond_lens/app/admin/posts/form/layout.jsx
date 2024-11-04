@@ -1,4 +1,4 @@
-import PostFormContextProvider from "./contexts/CategoryFormContext";
+import PostFormContextProvider from "./contexts/PostFormContext";
 
 export default function Layout({children}) {
     return <PostFormContextProvider>

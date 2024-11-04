@@ -2,7 +2,7 @@
 
 import { usePosts } from "@/lib/firebase/post/view";
 import Link from "next/link";
-import { usePostForm } from "../form/contexts/CategoryFormContext";
+import { usePostForm } from "../form/contexts/PostFormContext";
 
 export default function PostList() {
 

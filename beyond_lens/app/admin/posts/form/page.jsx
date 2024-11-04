@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
-import { usePostForm } from "./contexts/CategoryFormContext"
+import { usePostForm } from "./contexts/PostFormContext"
 import { useEffect } from "react";
 import { useCategories } from "@/lib/firebase/category/view";
 import { useAuthors } from "@/lib/firebase/author/view";
@@ -34,7 +34,7 @@ export default function Page() {
             }
             <h1 className="font-bold">Post | Form</h1>
         </div>
-        <section className="flex">
+        <section className="flex gap-20">
             <form onSubmit={(e) => {
                 e.preventDefault();
                 if (updatePostId) {
@@ -86,7 +86,9 @@ export default function Page() {
                     Successfully {updatePostId ? 'Updated' : 'Created'} !
                 </h3>}
             </form>
+            <div>
             <RTEField/>
+            </div>
         </section>
     </main>
 }

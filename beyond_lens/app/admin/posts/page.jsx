@@ -1,7 +1,7 @@
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 import PostList from "./components/PostList";
-import PostFormContextProvider from "./form/contexts/CategoryFormContext";
+import PostFormContextProvider from "./form/contexts/PostFormContext";
 
 export default function Page() {
     return <main className="p-6 w-full flex flex-col gap-6 px-14">

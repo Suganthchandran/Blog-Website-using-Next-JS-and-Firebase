@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^5.1.1",
     "firebase": "^11.0.1",
+    "froala-editor": "^4.3.0",
     "lucide-react": "^0.453.0",
     "next": "15.0.1",
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-froala-wysiwyg": "^4.3.0",
+    "react-quill": "^2.0.0",
     "swr": "^2.2.5"
   },
   "devDependencies": {
