@@ -7,24 +7,30 @@ import Link from 'next/link'
 export default function Header() {
     return <nav className='flex flex-row justify-between items-center px-10 py-3 font-semibold border-b border-gray-300'>
         <Link href={'/'}>
-        <img className='h-14' src='/hail.jpg' alt=''/>
+            <img className='h-14' src='/hail.jpg' alt='' />
         </Link>
         <ul className='flex flex-row gap-6 items-center text-xl'>
-            <li className='flex gap-2 items-center'>
-                <House />
-                Home
-            </li>
-            <li className='flex gap-2 items-center'>
-                <List />
-                Blogs
-            </li>
-            <li className='flex gap-2 items-center'>
-                <MessageCircle />
-                Contact Us
-            </li>
+            <Link href={'/'}>
+                <li className='flex gap-2 items-center'>
+                    <House />
+                    Home
+                </li>
+            </Link>
+            <Link href={'/categories'}>
+                <li className='flex gap-2 items-center'>
+                    <List />
+                    Categories
+                </li>
+            </Link>
+            <Link href={'/'}>
+                <li className='flex gap-2 items-center'>
+                    <MessageCircle />
+                    Contact Us
+                </li>
+            </Link>
         </ul>
         <AuthContextProvider>
-            <LoginButton/>
+            <LoginButton />
         </AuthContextProvider>
     </nav>
 }
