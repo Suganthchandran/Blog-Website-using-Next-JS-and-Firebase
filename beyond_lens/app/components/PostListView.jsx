@@ -21,7 +21,7 @@ export default async function PostListView() {
     </section>
 }
 
-function PostCard({ post }) {
+export function PostCard({ post }) {
     return <Link href={`/posts/${post?.id}`}>
         <div className="flex flex-col gap-3 p-2 rounded">
         <div className="relative">

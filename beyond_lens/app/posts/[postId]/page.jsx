@@ -2,6 +2,19 @@ import { getAuthor } from "@/lib/firebase/author/view_server";
 import { getCategory } from "@/lib/firebase/category/view_server";
 import { getPost } from "@/lib/firebase/post/view_server";
 
+export async function generateMetadata({ params }) {
+    
+    const { postId } = await params;
+    const post = await getPost(postId);
+   
+    return {
+      title: post?.title,
+      openGraph: {
+        images: [post?.imageURL],
+      },
+    }
+  }
+
 export default async function Page({ params }) {
     const { postId } = await params;
     const post = await getPost(postId);
