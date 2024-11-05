@@ -22,7 +22,7 @@ export default function Header() {
                     Categories
                 </li>
             </Link>
-            <Link href={'/'}>
+            <Link href={'/contact'}>
                 <li className='flex gap-2 items-center'>
                     <MessageCircle />
                     Contact Us
