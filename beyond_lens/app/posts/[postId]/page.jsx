@@ -1,35 +1,67 @@
+// import { getAuthor } from "@/lib/firebase/author/view_server";
+// import { getCategory } from "@/lib/firebase/category/view_server";
+// import { getPost } from "@/lib/firebase/post/view_server";
+
+// export async function generateMetadata({ params }) {
+    
+//     const { postId } = await params;
+//     const post = await getPost(postId);
+   
+//     return {
+//       title: post?.title,
+//       openGraph: {
+//         images: [post?.imageURL],
+//       },
+//     }
+//   }
+
+// export default async function Page({ params }) {
+//     const { postId } = await params;
+//     const post = await getPost(postId);
+//     return <main className="flex justify-center">
+//         <section className="flex flex-col gap-5 px-16 py-10 max-w-[1000px]">
+//         <CategoryCard categoryId={post?.categoryId} />
+//         <h1 className="text-2xl font-bold">{post?.title}</h1>
+//         <img className="w-full object-cover" src={post?.imageURL} alt="" />
+//         <div className="flex justify-between items-center">
+//             <AuthorCard authorId={post?.authorId} />
+//             <h5 className="text-sm text-gray-500">{post?.timestamp?.toDate()?.toLocaleDateString()}</h5>
+//         </div>
+//         <div dangerouslySetInnerHTML={{__html: post?.content}}></div>
+//         </section>
+//     </main>
+// }
+
+import { getAllPosts } from "@/lib/firebase/post/view_server";
+import { getPost } from "@/lib/firebase/post/view_server";
 import { getAuthor } from "@/lib/firebase/author/view_server";
 import { getCategory } from "@/lib/firebase/category/view_server";
-import { getPost } from "@/lib/firebase/post/view_server";
 
-export async function generateMetadata({ params }) {
-    
-    const { postId } = await params;
-    const post = await getPost(postId);
-   
-    return {
-      title: post?.title,
-      openGraph: {
-        images: [post?.imageURL],
-      },
-    }
-  }
+export async function generateStaticParams() {
+    const posts = await getAllPosts();
+    return posts.map((post) => ({
+        postId: post.id, // Ensure this matches the dynamic segment in your route.
+    }));
+}
 
 export default async function Page({ params }) {
-    const { postId } = await params;
+    const { postId } = params;
     const post = await getPost(postId);
-    return <main className="flex justify-center">
-        <section className="flex flex-col gap-5 px-16 py-10 max-w-[1000px]">
-        <CategoryCard categoryId={post?.categoryId} />
-        <h1 className="text-2xl font-bold">{post?.title}</h1>
-        <img className="w-full object-cover" src={post?.imageURL} alt="" />
-        <div className="flex justify-between items-center">
-            <AuthorCard authorId={post?.authorId} />
-            <h5 className="text-sm text-gray-500">{post?.timestamp?.toDate()?.toLocaleDateString()}</h5>
-        </div>
-        <div dangerouslySetInnerHTML={{__html: post?.content}}></div>
-        </section>
-    </main>
+
+    return (
+        <main className="flex justify-center">
+            <section className="flex flex-col gap-5 px-16 py-10 max-w-[1000px]">
+                <CategoryCard categoryId={post?.categoryId} />
+                <h1 className="text-2xl font-bold">{post?.title}</h1>
+                <img className="w-full object-cover" src={post?.imageURL} alt="" />
+                <div className="flex justify-between items-center">
+                    <AuthorCard authorId={post?.authorId} />
+                    <h5 className="text-sm text-gray-500">{post?.timestamp?.toDate()?.toLocaleDateString()}</h5>
+                </div>
+                <div dangerouslySetInnerHTML={{ __html: post?.content }}></div>
+            </section>
+        </main>
+    );
 }
 
 async function AuthorCard({ authorId }) {

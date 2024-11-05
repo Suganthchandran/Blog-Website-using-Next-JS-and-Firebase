@@ -1,9 +1,15 @@
 import { db } from "@/lib/firebase"
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 
-export const getAllPosts = async ()=> {
-    return await getDocs(collection(db,'posts')).then((snaps)=>snaps.docs.map((d)=>d.data()))
-}
+// export const getAllPosts = async ()=> {
+//     return await getDocs(collection(db,'posts')).then((snaps)=>snaps.docs.map((d)=>d.data()))
+// }
+
+export const getAllPosts = async () => {
+    return await getDocs(collection(db, 'posts')).then((snaps) => 
+        snaps.docs.map((d) => ({ id: d.id, ...d.data() }))
+    );
+};
 
 export const getAllPostsWithCategory = async (categoryId)=> {
     const q = query(collection(db,'posts'), where('categoryId','==',categoryId));

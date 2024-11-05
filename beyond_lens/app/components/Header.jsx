@@ -13,7 +13,7 @@ export default function Header() {
             <Link href={'/'}>
                 <li className='flex gap-2 items-center'>
                     <House />
-                    Home
+                    Homey
                 </li>
             </Link>
             <Link href={'/categories'}>
